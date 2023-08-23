@@ -7,7 +7,7 @@ import bodyParser from "body-parser";
 
 //Begin to use Express.
 const app = express();
-const port = 3000;
+const port = 3004;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -73,7 +73,7 @@ const isValidData = (obj) => {
 
 //Handles GET requests coming in to the root by sending out the homepage.
 app.get("/", (req, res) => {
-	res.sendFile(`${__dirname}\\home.html`);
+	res.sendFile(`${__dirname}/home.html`);
 });
 
 //Handles GET requests coming in to the /colors path by sending the entire colors
@@ -107,7 +107,7 @@ app.get("/colors/:color", (req, res) => {
 //Handles GET requests coming in to the /addcolor path. The form for adding new colors
 //to the database is contained in the addcolor.html file.
 app.get("/addcolor", (req, res) => {
-	res.sendFile(`${__dirname}\\addcolor.html`);
+	res.sendFile(`${__dirname}/addcolor.html`);
 });
 
 //Handles POST requests coming in to the /addcolor path. Most of these requests will
