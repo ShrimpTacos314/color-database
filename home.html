@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Colors database</title>
+	</head>
+	<body>
+		<h1>This is a database for colors.</h1>
+		<p>
+			Use a more specific URL to find a color, or click one of the
+			hyperlinks below.
+		</p>
+		<p id="hyperlinks"></p>
+		<script type="module">
+			//This script will GET all of the colors in the database,
+			//create a list of them, and add that list to the webpage.
+			const hyperlinks = document.querySelector("#hyperlinks");
+
+			const colorsDat = await fetch("http://localhost:3000/colors");
+			const resBody = JSON.parse(await colorsDat.text());
+			console.log(resBody);
+
+			let colorsList = "<ul>";
+
+			for (const [key, value] of Object.entries(resBody)) {
+				console.log(key);
+				console.log(value);
+				colorsList += `<li>
+                        <a href="http://localhost:3000/colors/${key}">
+                            ${value.name}
+                        </a>
+                    </li>`;
+				console.log(colorsList);
+			}
+
+			colorsList += `<li>
+                        <a href="http://localhost:3000/colors">All colors</a>
+                    </li>
+					<li>
+						<a href="http://localhost:3000/addcolor">Add a color...</a>	
+					</li>
+                </ul>`;
+
+			hyperlinks.innerHTML = colorsList;
+		</script>
+	</body>
+</html>

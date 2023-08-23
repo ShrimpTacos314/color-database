@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Add a color...</title>
+	</head>
+	<body>
+		<h1>Add a color to the database</h1>
+		<p>Use the form below to add a color of your choice to the database.</p>
+
+		<form>
+			<div>
+				<label for="color-name">Set your color's name:</label>
+				<input type="text" name="colorname" id="color-name" />
+			</div>
+			<div>
+				<label for="color-val">Set your color:</label>
+				<input type="color" name="colorval" id="color-val" />
+			</div>
+			<div>
+				<label for="color-alpha">Set your color's alpha value:</label>
+				<input
+					type="number"
+					name="coloralpha"
+					id="color-alpha"
+					min="0"
+					max="1"
+					step="0.01"
+					value="1"
+				/>
+			</div>
+			<div>
+				<input type="submit" value="Submit..." />
+			</div>
+		</form>
+		<span id="textbox"></span>
+
+		<script type="module">
+			const form = document.querySelector("form");
+			const textbox = document.querySelector("#textbox");
+
+			const notValidChars = /[^\d\w\s]/i;
+
+			const elimInvChars = (str) => {
+				let toReturn = str;
+
+				while (true) {
+					if (toReturn.replace(notValidChars, "") === toReturn) {
+						break;
+					} else {
+						toReturn = toReturn.replace(notValidChars, "");
+					}
+				}
+
+				return toReturn;
+			};
+
+			const toCamelCase = (str) => {
+				str = elimInvChars(str);
+				str = str.trim();
+				let words = str.split(/\s/i);
+				let toReturn = "";
+
+				toReturn += words[0].toLowerCase();
+
+				for (let i = 1; i < words.length; i++) {
+					let currentWord = words[i];
+					let letters = currentWord.split("");
+					letters[0] = letters[0].toUpperCase();
+
+					let newWord = "";
+					for (let letter of letters) {
+						newWord += letter;
+					}
+					toReturn += newWord;
+				}
+
+				return toReturn;
+			};
+
+			const formToJSON = (name, val, alpha) => {
+				let toReturn = {};
+
+				Object.defineProperty(toReturn, "name", {
+					value: name,
+					enumerable: true,
+				});
+				Object.defineProperty(toReturn, "id", {
+					value: toCamelCase(name),
+					enumerable: true,
+				});
+				Object.defineProperty(toReturn, "col", {
+					value: val,
+					enumerable: true,
+				});
+				Object.defineProperty(toReturn, "alpha", {
+					value: alpha,
+					enumerable: true,
+				});
+
+				return toReturn;
+			};
+
+			const sendData = async (event) => {
+				event.preventDefault();
+
+				const nameField = document.querySelector("#color-name").value;
+				const valField = document.querySelector("#color-val").value;
+				const alphaField = document.querySelector("#color-alpha").value;
+				const toSend = formToJSON(nameField, valField, alphaField);
+
+				console.log(toSend);
+				const response = await fetch("http://localhost:3000/addcolor", {
+					method: "POST",
+					body: JSON.stringify(toSend),
+				});
+				const body = await response.text();
+				textbox.textContent = body;
+			};
+
+			form.addEventListener("submit", sendData, true);
+		</script>
+	</body>
+</html>

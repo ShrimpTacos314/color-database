@@ -1,0 +1,34 @@
+<b>Moo!</b>
+
+<script type="module">
+  console.log('Hello')
+
+  const response = await fetch("http://localhost:3001/people");
+  const body = await response.text()
+
+  console.log(body)
+
+  //
+
+  const response2 = await fetch("http://localhost:3001/people/a");
+  const body2 = await response2.text()
+
+  console.log(body2)
+
+  //
+
+  const response3 = await fetch("http://localhost:3001/people", {
+    method: 'POST',
+    body: JSON.stringify({id: 'c', name: 'Ted', debt: 0})
+  });
+  const body3 = await response3.text()
+
+  console.log(body3)
+
+//
+
+  const response4 = await fetch("http://localhost:3001/people");
+  const body4 = await response4.text()
+
+  console.log(body4)
+</script>
