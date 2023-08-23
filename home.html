@@ -16,7 +16,7 @@
 			//create a list of them, and add that list to the webpage.
 			const hyperlinks = document.querySelector("#hyperlinks");
 
-			const colorsDat = await fetch("http://localhost:3000/colors");
+			const colorsDat = await fetch("/colors");
 			const resBody = JSON.parse(await colorsDat.text());
 			console.log(resBody);
 
@@ -26,7 +26,7 @@
 				console.log(key);
 				console.log(value);
 				colorsList += `<li>
-                        <a href="http://localhost:3000/colors/${key}">
+                        <a href="/colors/${key}">
                             ${value.name}
                         </a>
                     </li>`;
@@ -34,10 +34,10 @@
 			}
 
 			colorsList += `<li>
-                        <a href="http://localhost:3000/colors">All colors</a>
+                        <a href="/colors">All colors</a>
                     </li>
 					<li>
-						<a href="http://localhost:3000/addcolor">Add a color...</a>	
+						<a href="/addcolor">Add a color...</a>	
 					</li>
                 </ul>`;
 

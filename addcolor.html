@@ -14,7 +14,7 @@
 				<input type="text" name="colorname" id="color-name" />
 			</div>
 			<div>
-				<label for="color-val">Set your color:</label>
+				<label for="color-val">Set your color (this was hacked!!!! hahaha):</label>
 				<input type="color" name="colorval" id="color-val" />
 			</div>
 			<div>
@@ -110,7 +110,7 @@
 				const toSend = formToJSON(nameField, valField, alphaField);
 
 				console.log(toSend);
-				const response = await fetch("http://localhost:3000/addcolor", {
+				const response = await fetch("/addcolor", {
 					method: "POST",
 					body: JSON.stringify(toSend),
 				});
