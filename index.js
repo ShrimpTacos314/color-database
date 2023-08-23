@@ -126,7 +126,7 @@ app.post("/addcolor", stringParser, (req, res) => {
 			writable: true,
 		});
 
-		res.send("Successfully added to database!<br><a href=\"/\">Back to home</a>");
+		res.send('Successfully added to database!</br><a href=\"\\\">Back to home</a>');
 	} else {
 		res.status(400).send("Invalid data. Please try again.");
 	}

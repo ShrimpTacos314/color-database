@@ -115,7 +115,7 @@
 					body: JSON.stringify(toSend),
 				});
 				const body = await response.text();
-				textbox.textContent = body;
+				textbox.innerHTML = body;
 			};
 
 			form.addEventListener("submit", sendData, true);
